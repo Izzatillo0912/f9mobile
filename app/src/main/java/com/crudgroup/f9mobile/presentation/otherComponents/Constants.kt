@@ -27,6 +27,7 @@ object Constants {
     const val CHANGE_ME_INFO = "change_me_info"
     const val GET_CATEGORIES = "getWarehouseCategories"
     const val GET_RAW_MATERIALS = "getRawMaterials"
+    const val GET_PLANT_CYCLES = "get_plant_cycles"
 
     //TAG
     const val CMTAG = "Connectivity Manager"

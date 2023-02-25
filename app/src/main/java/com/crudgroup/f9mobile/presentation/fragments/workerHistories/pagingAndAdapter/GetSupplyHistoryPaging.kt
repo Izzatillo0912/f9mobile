@@ -4,11 +4,7 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.crudgroup.f9mobile.data.api.F9Api
-import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.OrdersModel
 import com.crudgroup.f9mobile.presentation.fragments.workerHistories.model.GetSupplyHistoryModel
-import com.crudgroup.f9mobile.presentation.fragments.workerRawMaterials.model.MaterialStoresModel
-import com.crudgroup.f9mobile.presentation.fragments.workerRawMaterials.model.RawMaterialModel
-import com.crudgroup.f9mobile.presentation.fragments.workerWarehouse.model.WarehouseCategoryModel
 import com.crudgroup.f9mobile.presentation.otherComponents.Constants
 import com.orhanobut.hawk.Hawk
 import retrofit2.HttpException

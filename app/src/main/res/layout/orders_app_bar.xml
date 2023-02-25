@@ -34,11 +34,11 @@
                 android:layout_weight="1"
                 android:background="@drawable/ripple_black_no_corner"
                 android:gravity="center"
-                android:paddingStart="20dp"
+                android:paddingStart="5dp"
                 android:paddingTop="15dp"
-                android:paddingEnd="20dp"
+                android:paddingEnd="5dp"
                 android:paddingBottom="15dp"
-                android:text="Buyurtmalar"
+                android:text="Ishlab - chiqarish"
                 android:textColor="@color/white_text_color_100"
                 android:textSize="16sp" />
 
@@ -49,8 +49,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/ripple_white_no_corner"
                 android:gravity="center"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:text="Yakunlanganlar"
                 android:textColor="@color/black_text_color_100"
                 android:textSize="16sp" />

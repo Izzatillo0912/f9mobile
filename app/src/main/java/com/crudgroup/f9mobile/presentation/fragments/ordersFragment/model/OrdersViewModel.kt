@@ -9,8 +9,8 @@ class OrdersViewModel : ViewModel() {
 
     private val repository = OrdersRepository()
 
-    fun getOrdersList(): LiveData<PagingData<OrdersModel>> {
-        return repository.getWarehouseOrders()
+    fun getPlantCycles(searchText : String, plantId : Int): LiveData<PagingData<PlantCyclesModel>> {
+        return repository.getPlantCycles(searchText, plantId)
     }
 
 }

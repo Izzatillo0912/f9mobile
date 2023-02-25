@@ -6,9 +6,9 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.crudgroup.f9mobile.databinding.ItemOrdersBinding
-import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.OrdersModel
+import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.PlantCyclesModel
 
-class OrdersAdapter : PagingDataAdapter<OrdersModel, OrdersAdapter.ViewHolder>(OrdersDiffItemCallback()){
+class OrdersAdapter : PagingDataAdapter<PlantCyclesModel, OrdersAdapter.ViewHolder>(OrdersDiffItemCallback()){
 
     class ViewHolder(val binding: ItemOrdersBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -17,17 +17,21 @@ class OrdersAdapter : PagingDataAdapter<OrdersModel, OrdersAdapter.ViewHolder>(O
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
 
+        if (item != null) {
+            holder.binding.apply {
+                orderProductName.text = item.cycles.product.name
+            }
+        }
     }
 
-    override fun getItemCount() = 20
-
-    class OrdersDiffItemCallback : DiffUtil.ItemCallback<OrdersModel>() {
-        override fun areItemsTheSame(oldItem: OrdersModel, newItem: OrdersModel): Boolean {
+    class OrdersDiffItemCallback : DiffUtil.ItemCallback<PlantCyclesModel>() {
+        override fun areItemsTheSame(oldItem: PlantCyclesModel, newItem: PlantCyclesModel): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: OrdersModel, newItem: OrdersModel): Boolean {
+        override fun areContentsTheSame(oldItem: PlantCyclesModel, newItem: PlantCyclesModel): Boolean {
             return oldItem == newItem
         }
     }

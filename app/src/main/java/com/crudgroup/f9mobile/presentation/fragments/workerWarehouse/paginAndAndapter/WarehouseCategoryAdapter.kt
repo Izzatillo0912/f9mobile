@@ -7,9 +7,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.crudgroup.f9mobile.databinding.ItemOrdersBinding
 import com.crudgroup.f9mobile.databinding.ItemWarehouseCategoryBinding
-import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.OrdersModel
 import com.crudgroup.f9mobile.presentation.fragments.workerWarehouse.model.WarehouseCategoryModel
 import com.crudgroup.f9mobile.presentation.otherComponents.Constants
 

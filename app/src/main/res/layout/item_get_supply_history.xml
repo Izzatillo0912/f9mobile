@@ -13,7 +13,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/image_card"
@@ -22,6 +24,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:cardCornerRadius="10dp"
             app:cardElevation="4dp"
@@ -41,8 +44,8 @@
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/image_card"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +65,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/order_product_name"
+                    android:id="@+id/supply_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -87,7 +90,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/client_name"
+                    android:id="@+id/supplier_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -138,7 +141,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/order_submit_date"
+                    android:id="@+id/supply_create_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -198,6 +201,52 @@
                     android:text="234.05   TENGE"
                     android:textColor="@color/black_text_color_100"
                     android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/supply_chnage_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_white_btn"
+                    android:clickable="true"
+                    android:drawableEnd="@drawable/ic_edit"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="O'zgartirish"
+                    android:textColor="@color/black_text_color_100"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/supply_cancel_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/ripple_black_btn"
+                    android:clickable="true"
+                    android:drawableEnd="@drawable/ic_delete"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="Bekor qilish"
+                    android:textColor="@color/white_text_color_100"
+                    app:drawableTint="@color/white_text_color_100"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
         </LinearLayout>

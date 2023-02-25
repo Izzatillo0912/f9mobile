@@ -2,23 +2,12 @@ package com.crudgroup.f9mobile.presentation.fragments.workerRawMaterials.pagingA
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.crudgroup.f9mobile.databinding.ItemOrdersBinding
 import com.crudgroup.f9mobile.databinding.ItemRawMaterialBinding
-import com.crudgroup.f9mobile.databinding.ItemWarehouseCategoryBinding
-import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.OrdersModel
 import com.crudgroup.f9mobile.presentation.fragments.workerRawMaterials.model.MaterialStoresModel
-import com.crudgroup.f9mobile.presentation.fragments.workerRawMaterials.model.RawMaterialModel
-import com.crudgroup.f9mobile.presentation.fragments.workerWarehouse.model.WarehouseCategoryModel
-import com.crudgroup.f9mobile.presentation.otherComponents.Constants
 
 class WorkerRawMaterialAdapter(private val rawMaterialItemClickListener: RawMaterialItemClickListener)
     : PagingDataAdapter<MaterialStoresModel, WorkerRawMaterialAdapter.ViewHolder>(OrdersDiffItemCallback()){

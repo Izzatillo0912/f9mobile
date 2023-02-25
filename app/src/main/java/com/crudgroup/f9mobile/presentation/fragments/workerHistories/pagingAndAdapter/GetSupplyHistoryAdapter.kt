@@ -1,5 +1,6 @@
 package com.crudgroup.f9mobile.presentation.fragments.workerHistories.pagingAndAdapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -16,7 +17,18 @@ class GetSupplyHistoryAdapter : PagingDataAdapter<GetSupplyHistoryModel, GetSupp
         return ViewHolder(ItemGetSupplyHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        if (item != null) {
+            holder.binding.apply {
+                supplyCreateDate.text = item.created_at.replace("T", " / ")
+                supplyName.text = item.material
+                supplierName.text = item.supplier
+                historySupplyVolume.text = "${item.value}  " + item.olchov
+                historySupplyPrice.text = "${item.price}  Tenge"
+            }
+        }
 
     }
 
