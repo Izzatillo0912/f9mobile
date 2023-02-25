@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/worker_warehouse_nav_graph"
+    app:startDestination="@id/workerWarehouseFragment">
+
+    <fragment
+        android:id="@+id/workerWarehouseFragment"
+        android:name="com.crudgroup.f9mobile.presentation.fragments.workerWarehouse.WorkerWarehouseFragment"
+        android:label="fragment_worker_warehouse"
+        tools:layout="@layout/fragment_worker_warehouse" >
+        <action
+            android:id="@+id/action_workerWarehouseFragment_to_workerRawMaterialsFragment"
+            app:destination="@id/workerRawMaterialsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/workerRawMaterialsFragment"
+        android:name="com.crudgroup.f9mobile.presentation.fragments.workerRawMaterials.WorkerRawMaterialsFragment"
+        android:label="fragment_worker_raw_materials"
+        tools:layout="@layout/fragment_worker_raw_materials" >
+        <action
+            android:id="@+id/action_workerRawMaterialsFragment_to_getSupplyHistoryFragment"
+            app:destination="@id/getSupplyHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/getSupplyHistoryFragment"
+        android:name="com.crudgroup.f9mobile.presentation.fragments.workerHistories.GetSupplyHistoryFragment"
+        android:label="fragment_get_supply_history"
+        tools:layout="@layout/fragment_get_supply_history" />
+</navigation>

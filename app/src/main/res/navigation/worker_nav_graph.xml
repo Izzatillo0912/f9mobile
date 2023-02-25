@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/worker_nav_graph"
+    app:startDestination="@id/orders_nav_graph">
+
+    <include app:graph="@navigation/orders_nav_graph" />
+    <include app:graph="@navigation/history_nav_graph" />
+    <include app:graph="@navigation/worker_warehouse_nav_graph" />
+    <fragment
+        android:id="@+id/workerProfileFragment"
+        android:name="com.crudgroup.f9mobile.presentation.fragments.roleFragments.WorkerProfileFragment"
+        android:label="fragment_worker_profile"
+        tools:layout="@layout/fragment_worker_profile" />
+
+</navigation>

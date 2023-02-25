@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="400"
+        motion:transitionFlags="beginOnFirstDraw">
+        <OnClick motion:targetId="@+id/search_btn" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/page_title"
+            android:layout_width="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintEnd_toStartOf="parent"/>
+        <Constraint
+            android:id="@+id/search_btn"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@+id/search_and_filter_background"
+            motion:layout_constraintEnd_toEndOf="@id/filter_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="@id/search_btn"/>
+        <Constraint
+            android:id="@+id/search_input"
+            motion:layout_constraintEnd_toStartOf="@+id/filter_btn"
+            motion:layout_constraintStart_toEndOf="@+id/search_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            motion:layout_constraintBottom_toBottomOf="@+id/search_btn"
+            motion:layout_constraintTop_toTopOf="@+id/search_btn" />
+        <Constraint
+            android:id="@+id/filter_btn"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/back_page_btn"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintEnd_toStartOf="parent" />
+    </ConstraintSet>
+</MotionScene>

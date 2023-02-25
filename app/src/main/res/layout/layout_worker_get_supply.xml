@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:boxStrokeColor="@null"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="@null"
+        app:startIconDrawable="@drawable/ic_person">
+
+        <AutoCompleteTextView
+            android:id="@+id/get_supplier_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_search_and_filter_bar"
+            android:fontFamily="@font/outfit_medium"
+            android:hint="Taminotchi" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:boxStrokeColor="@null"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="@null"
+        app:startIconDrawable="@drawable/ic_box_product">
+
+        <AutoCompleteTextView
+            android:id="@+id/get_supply_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_search_and_filter_bar"
+            android:fontFamily="@font/outfit_medium"
+            android:hint="Kategoriya" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:boxStrokeColor="@null"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="@null"
+        app:startIconDrawable="@drawable/ic_box_product">
+
+        <AutoCompleteTextView
+            android:id="@+id/get_supply_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_search_and_filter_bar"
+            android:fontFamily="@font/outfit_medium"
+            android:hint="Mahsulot" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/get_supply_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_search_and_filter_bar"
+            android:ems="4"
+            android:fontFamily="@font/outfit_medium"
+            android:hint="Quantitiy"
+            android:inputType="textPersonName"
+            android:paddingStart="15dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="10dp"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_search_and_filter_bar">
+
+            <Spinner
+                android:id="@+id/get_supply_quantity_type_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/get_supply_confirm_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ripple_black_btn"
+        android:drawableEnd="@drawable/ic_check_box"
+        android:fontFamily="@font/outfit_medium"
+        android:gravity="center"
+        android:padding="10dp"
+        android:paddingEnd="40dp"
+        android:text="Tasdiqlash"
+        android:textColor="@color/white_text_color_100"
+        app:drawableTint="@color/white_text_color_100" />
+
+    <TextView
+        android:id="@+id/get_supply_cancel_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/ripple_white_btn"
+        android:drawableEnd="@drawable/ic_close_in_box"
+        android:fontFamily="@font/outfit_medium"
+        android:gravity="center"
+        android:padding="10dp"
+        android:paddingEnd="40dp"
+        android:text="Bekor qilish"
+        android:textColor="@color/black_text_color_100"
+        app:drawableTint="@color/black_text_color_100" />
+
+
+</LinearLayout>
