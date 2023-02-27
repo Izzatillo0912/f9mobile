@@ -1,5 +1,7 @@
 package com.crudgroup.f9mobile.presentation.otherComponents
 
+import android.annotation.SuppressLint
+import com.crudgroup.f9mobile.databinding.OrdersAppBarBinding
 import com.crudgroup.f9mobile.presentation.otherComponents.model.MeInfoModel
 
 object Constants {
@@ -16,6 +18,8 @@ object Constants {
     const val ROLE_PLANT_ADMIN = "plant_admin"
     const val ROLE_ANALYTIC = "analytic"
     var meInfoModel : MeInfoModel? = null
+    @SuppressLint("StaticFieldLeak")
+    var appBarBinding : OrdersAppBarBinding? = null
 
     //Pager 3
     const val PAGE_SIZE = 10

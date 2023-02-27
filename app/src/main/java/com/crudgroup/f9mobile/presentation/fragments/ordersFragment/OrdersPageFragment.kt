@@ -1,5 +1,6 @@
 package com.crudgroup.f9mobile.presentation.fragments.ordersFragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,51 +30,62 @@ class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
     private lateinit var connectionDialog: ConnectionDialog
     private lateinit var connectionError: ConnectionError
     private lateinit var ordersViewModel: OrdersViewModel
-    private val ordersAdapter by lazy { OrdersAdapter() }
+    private val ordersAdapter: OrdersAdapter by lazy { OrdersAdapter() }
     private var checkConnected = true
     private var placeHolderPermission = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        connectivityManager = MyConnectivityManager(requireContext())
-        connectionError = ConnectionError(requireContext())
         connectionDialog = ConnectionDialog(requireContext(), this)
+        connectionError = ConnectionError(requireContext())
+        connectivityManager = MyConnectivityManager(requireContext())
         ordersViewModel = ViewModelProvider(this)[OrdersViewModel::class.java]
+
         initObserver()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentOrdersPageBinding.inflate(inflater, container, false)
-        ordersAdapter.addLoadStateListener { loadStateManager(it) }
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        ordersAdapter.addLoadStateListener { loadStateManager(it) }
 
         binding.refreshLayout.setOnRefreshListener {
             refreshAllData()
         }
 
-        binding.ordersRv.adapter = OrdersAdapter().withLoadStateHeaderAndFooter(
+        binding.ordersRv.adapter = ordersAdapter.withLoadStateHeaderAndFooter(
             header = MyLoadStateAdapter(),
             footer = MyLoadStateAdapter()
         )
-        return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun initObserver() {
-        ordersViewModel.getPlantCycles("", Hawk.get("my_plant_id")).observe(this) {
-            lifecycleScope.launch {
-                ordersAdapter.submitData(it)
+
+        connectivityManager.checkConnection()
+        connectivityManager.observe(this) { checkConnected = it }
+
+        if(checkConnected){
+            ordersViewModel.getPlantCycles("", Hawk.get("my_plant_id")).observe(this) {
+                lifecycleScope.launch {
+                    ordersAdapter.submitData(it)
+                }
             }
         }
+        else connectionDialog.showDialog(Constants.GET_RAW_MATERIALS, Constants.NO_INTERNET, "Tarmoq bilan aloqa mavjud emas !!")
     }
 
     private fun refreshAllData(){
         binding.refreshLayout.isRefreshing = true
         ordersAdapter.refresh()
-        if(checkConnected) {
-            connectionDialog.showDialog(Constants.GET_PLANT_CYCLES,Constants.IS_LOADING,"")
-            ordersViewModel.getPlantCycles("", 0)
-        }
-        else connectionDialog.showDialog(Constants.GET_PLANT_CYCLES, Constants.NO_INTERNET, "Tarmoq bilan aloqa mavjud emas !!")
+        if(checkConnected) ordersViewModel.getPlantCycles("",0)
+        else connectionDialog.showDialog(Constants.GET_RAW_MATERIALS, Constants.NO_INTERNET, "Tarmoq bilan aloqa mavjud emas !!")
     }
 
     private fun shimmerLayoutVisible(visible: Boolean){

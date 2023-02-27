@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.crudgroup.f9mobile.databinding.FragmentOrdersBinding
 import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.paginationAndAdapter.OrdersViewPagerAdapter
+import com.crudgroup.f9mobile.presentation.otherComponents.Constants
 import com.crudgroup.f9mobile.presentation.otherComponents.FilterAndSearchBar
 import com.crudgroup.f9mobile.presentation.otherComponents.ViewPagerTabLayout
 
@@ -33,6 +34,8 @@ class OrdersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Constants.appBarBinding = binding.appBar
 
         viewPagerTabLayout.connectViewPager(binding.appBar.ordersPageBtn, binding.appBar.finishedOrdersPageBtn, binding.getOrdersChangeViewPager)
         binding.getOrdersChangeViewPager.adapter = OrdersViewPagerAdapter(this)

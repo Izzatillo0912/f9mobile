@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.crudgroup.f9mobile.R
@@ -18,35 +20,40 @@ import com.crudgroup.f9mobile.presentation.fragments.workerRawMaterials.model.Wo
 import com.crudgroup.f9mobile.presentation.fragments.workerRawMaterials.pagingAndAdapter.WorkerRawMaterialAdapter
 import com.crudgroup.f9mobile.presentation.otherComponents.*
 import com.crudgroup.f9mobile.presentation.otherComponents.dialog.ConnectionDialog
+import com.crudgroup.f9mobile.presentation.otherComponents.dialog.FilterDialog
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 
 class GetSupplyHistoryFragment : Fragment(), ConnectionDialog.RefreshClicked {
 
     private lateinit var binding: FragmentGetSupplyHistoryBinding
-    private lateinit var filterAndSearchBar: FilterAndSearchBar
+    private lateinit var filterDialog: FilterDialog
     private lateinit var connectionDialog: ConnectionDialog
     private lateinit var connectionError: ConnectionError
     private lateinit var connectivityManager: MyConnectivityManager
     private lateinit var historyViewModel: HistoryViewModel
+    private val contentFlow = MutableSharedFlow<String>()
     private val getSupplyHistoryAdapter: GetSupplyHistoryAdapter by lazy { GetSupplyHistoryAdapter() }
     private var checkConnected = true
     private var placeHolderPermission = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        filterAndSearchBar = FilterAndSearchBar(this)
+        filterDialog = FilterDialog(this)
         connectionDialog = ConnectionDialog(requireContext(), this)
         connectionError = ConnectionError(requireContext())
         connectivityManager = MyConnectivityManager(requireContext())
         historyViewModel = ViewModelProvider(this)[HistoryViewModel :: class.java]
 
         initObserver()
+        subscribeFlows()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentGetSupplyHistoryBinding.inflate(inflater, container, false)
-        filterAndSearchBar.activeSupplyHistoryFragmentSearchBar(binding, requireArguments().getString("material_name").toString())
+        binding.appBar.pageTitle.text = requireArguments().getString("material_name").toString()
         return binding.root
     }
 
@@ -62,7 +69,37 @@ class GetSupplyHistoryFragment : Fragment(), ConnectionDialog.RefreshClicked {
             header = MyLoadStateAdapter(),
             footer = MyLoadStateAdapter(),
         )
+
+        binding.appBar.backPageBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.appBar.filterBtn.setOnClickListener {
+            filterDialog.showDialog()
+        }
+
+        binding.appBar.searchInput.addTextChangedListener {
+            emitContent(it.toString())
+        }
+
     }
+
+    private fun subscribeFlows() = lifecycleScope.launch {
+        contentFlow
+            .debounce(500)
+            .collect {
+                historyViewModel.getSupplyHistory(0,"", "", it).observe(viewLifecycleOwner){
+                    lifecycleScope.launch {
+                        getSupplyHistoryAdapter.submitData(it)
+                    }
+                }
+            }
+    }
+
+    private fun emitContent(content: String) = lifecycleScope.launch{
+        contentFlow.emit(content)
+    }
+
 
     private fun initObserver(){
 
@@ -129,5 +166,10 @@ class GetSupplyHistoryFragment : Fragment(), ConnectionDialog.RefreshClicked {
     override fun connectDialogRefreshClicked(refreshType: String) {
         connectionDialog.dismissDialog()
         initObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.appBar.searchInput.text.clear()
     }
 }
