@@ -8,7 +8,7 @@
     android:layout_marginTop="8dp"
     android:layout_marginEnd="15dp"
     android:layout_marginBottom="8dp"
-    style="@style/loginInputStyle"
+    style="@style/cardItemColor"
     app:cardCornerRadius="10dp"
     app:cardElevation="4dp">
 
@@ -131,13 +131,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/ripple_black_btn"
+                style="@style/blackBtn"
                 android:fontFamily="@font/outfit_medium"
                 android:gravity="center"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 android:text="Qisimlarni ko'rish"
-                android:textColor="@color/white_text_color_100"
                 android:textSize="12sp" />
 
         </LinearLayout>

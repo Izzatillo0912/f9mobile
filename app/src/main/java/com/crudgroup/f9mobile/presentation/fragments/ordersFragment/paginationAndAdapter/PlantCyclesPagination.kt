@@ -1,5 +1,6 @@
 package com.crudgroup.f9mobile.presentation.fragments.ordersFragment.paginationAndAdapter
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.crudgroup.f9mobile.data.api.F9Api
@@ -24,6 +25,7 @@ class PlantCyclesPagination(private val f9Api: F9Api, private val searchText : S
 
             if (response.isSuccessful) {
                 val orders = response.body()!!
+                Log.e("PlantCycles", "load: ${response.code()}  ${response.body()!!.data.size}", )
                 val nextPageNumber = if (orders.data.size < pageSize) null else pageNumber + 1
                 val prevPageNumber = if (pageNumber > 1) pageNumber - 1 else null
                 return LoadResult.Page(orders.data, prevPageNumber, nextPageNumber)

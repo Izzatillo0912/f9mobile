@@ -144,7 +144,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/inputColor"
-                        android:hint="Parol"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
                         android:password="true"

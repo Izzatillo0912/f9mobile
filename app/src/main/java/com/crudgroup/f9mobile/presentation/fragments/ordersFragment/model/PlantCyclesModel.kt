@@ -6,6 +6,6 @@ data class PlantCyclesModel(
     val cycles_id : Int,
     val plant_id : Int,
     val id : Int,
-    val cycles : CyclesModel,
-    val plantModel: PlantModel
+    val cycle : CyclesModel,
+    val plant: PlantModel
 )

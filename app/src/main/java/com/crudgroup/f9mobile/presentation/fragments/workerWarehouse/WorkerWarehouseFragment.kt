@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -21,7 +23,11 @@ import com.crudgroup.f9mobile.presentation.fragments.workerWarehouse.model.Wareh
 import com.crudgroup.f9mobile.presentation.fragments.workerWarehouse.paginAndAndapter.WarehouseCategoryAdapter
 import com.crudgroup.f9mobile.presentation.otherComponents.*
 import com.crudgroup.f9mobile.presentation.otherComponents.dialog.ConnectionDialog
+import com.crudgroup.f9mobile.presentation.otherComponents.dialog.FilterDialog
 import com.crudgroup.f9mobile.presentation.otherComponents.dialog.TimberCalculatorDialog
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 
@@ -29,14 +35,16 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
 
     private lateinit var binding: FragmentWorkerWarehouseBinding
     private lateinit var warehouseViewModel : WarehouseViewModel
-    private lateinit var filterAndSearchBar: FilterAndSearchBar
     private lateinit var connectivityManager: MyConnectivityManager
+    private lateinit var filterDialog: FilterDialog
     private lateinit var connectionError: ConnectionError
     private lateinit var connectionDialog: ConnectionDialog
     private lateinit var getSupplyDialog: GetSupplyDialog
+    private val contentFlow = MutableSharedFlow<String>()
     private val warehouseCategoryAdapter: WarehouseCategoryAdapter by lazy { WarehouseCategoryAdapter(this) }
     private var checkConnection = true
     private var placeHolderPermission = true
+    private var searchOpened = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,16 +52,18 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
         connectivityManager = MyConnectivityManager(requireContext())
         connectionError = ConnectionError(requireContext())
         connectionDialog = ConnectionDialog(requireContext(), this)
-        filterAndSearchBar = FilterAndSearchBar(this)
         getSupplyDialog = GetSupplyDialog(this)
+        filterDialog = FilterDialog(this)
         warehouseViewModel = ViewModelProvider(this)[WarehouseViewModel :: class.java]
 
         initObservers()
+        subscribeFlows()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWorkerWarehouseBinding.inflate(inflater, container, false)
-        filterAndSearchBar.activeWarehouseFragmentFilterAndSearchBar(binding)
+        binding.appBar.backPageBtn.visibility = View.GONE
+        binding.appBar.pageTitle.text = "Hom ashyo turlari"
         return binding.root
     }
 
@@ -74,6 +84,30 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
         binding.openGetSupplyDialogBtn.setOnClickListener {
             getSupplyDialog.showGetSupplyDialog()
         }
+
+        binding.appBar.filterBtn.setOnClickListener {
+            filterDialog.showDialog()
+        }
+
+        binding.appBar.searchInput.addTextChangedListener {
+            emitContent(it.toString())
+        }
+    }
+
+    private fun subscribeFlows() = lifecycleScope.launch {
+        contentFlow
+            .debounce(500)
+            .collect {
+                warehouseViewModel.getWarehouseCategory(it, connectionDialog).observe(viewLifecycleOwner){
+                    lifecycleScope.launch {
+                        warehouseCategoryAdapter.submitData(it)
+                    }
+                }
+            }
+    }
+
+    private fun emitContent(content: String) = lifecycleScope.launch{
+        contentFlow.emit(content)
     }
 
     private fun initObservers() {
@@ -152,5 +186,10 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
         bundle.putInt("category_id", warehouseCategoryModel.Material_Type.id)
         bundle.putString("category_name", warehouseCategoryModel.Material_Type.name)
         findNavController().navigate(R.id.action_workerWarehouseFragment_to_workerRawMaterialsFragment, bundle)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.appBar.searchInput.text.clear()
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -25,18 +26,22 @@ import com.crudgroup.f9mobile.presentation.otherComponents.*
 import com.crudgroup.f9mobile.presentation.otherComponents.ApiResult.Companion.error
 import com.crudgroup.f9mobile.presentation.otherComponents.ApiResult.Companion.success
 import com.crudgroup.f9mobile.presentation.otherComponents.dialog.ConnectionDialog
+import com.crudgroup.f9mobile.presentation.otherComponents.dialog.FilterDialog
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 
 class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, WorkerRawMaterialAdapter.RawMaterialItemClickListener {
 
     private lateinit var binding: FragmentWorkerRawMaterialsBinding
-    private lateinit var filterAndSearchBar: FilterAndSearchBar
     private lateinit var connectionDialog: ConnectionDialog
     private lateinit var connectionError: ConnectionError
+    private lateinit var filterDialog : FilterDialog
     private lateinit var connectivityManager: MyConnectivityManager
     private lateinit var workerRawMaterialsViewModel: WorkerRawMaterialsViewModel
     private lateinit var getRawMaterialDialog: GetRawMaterialDialog
+    private val contentFlow = MutableSharedFlow<String>()
     private val workerRawMaterialAdapter: WorkerRawMaterialAdapter by lazy { WorkerRawMaterialAdapter(this) }
     private var checkConnected = true
     private var placeHolderPermission = true
@@ -44,17 +49,18 @@ class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        filterAndSearchBar = FilterAndSearchBar(this)
         connectionDialog = ConnectionDialog(requireContext(),this)
         connectivityManager = MyConnectivityManager(requireContext())
         connectionError = ConnectionError(requireContext())
+        filterDialog = FilterDialog(this)
         workerRawMaterialsViewModel = ViewModelProvider(this)[WorkerRawMaterialsViewModel :: class.java]
         initObserver()
+        subscribeFlows()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentWorkerRawMaterialsBinding.inflate(inflater, container, false)
-        filterAndSearchBar.activeRawMaterialFragmentFilterAndSearchBar(binding, requireArguments().getString("category_name").toString())
+        binding.appBar.pageTitle.text = requireArguments().getString("category_name").toString()
         return binding.root
     }
 
@@ -71,6 +77,34 @@ class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, 
             header = MyLoadStateAdapter(),
             footer = MyLoadStateAdapter(),
         )
+
+        binding.appBar.backPageBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.appBar.filterBtn.setOnClickListener {
+            filterDialog.showDialog()
+        }
+
+        binding.appBar.searchInput.addTextChangedListener {
+            emitContent(it.toString())
+        }
+    }
+
+    private fun subscribeFlows() = lifecycleScope.launch {
+        contentFlow
+            .debounce(500)
+            .collect {
+                workerRawMaterialsViewModel.getWorkerRawMaterials(requireArguments().getInt("category_id"), it).observe(viewLifecycleOwner){
+                    lifecycleScope.launch {
+                        workerRawMaterialAdapter.submitData(it)
+                    }
+                }
+            }
+    }
+
+    private fun emitContent(content: String) = lifecycleScope.launch{
+        contentFlow.emit(content)
     }
 
     private fun initObserver(){
@@ -93,7 +127,7 @@ class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, 
                 refreshAllData()
             }
             apiResult.error {
-
+                connectionError.checkConnectionError(it, connectionDialog, Constants.GET_RAW_MATERIALS)
             }
         }
 
@@ -102,7 +136,7 @@ class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, 
                 refreshAllData()
             }
             apiResult.error {
-
+                connectionError.checkConnectionError(it, connectionDialog, Constants.GET_RAW_MATERIALS)
             }
         }
 
@@ -172,5 +206,10 @@ class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, 
     override fun rawMaterialGetSupplyClicked(rawMaterialModel: MaterialStoresModel) {
         getRawMaterialDialog = GetRawMaterialDialog(this)
         getRawMaterialDialog.showGetSupplyDialog(rawMaterialModel)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.appBar.searchInput.text.clear()
     }
 }

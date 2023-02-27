@@ -12,18 +12,17 @@ import com.crudgroup.f9mobile.presentation.otherComponents.dialog.FilterDialog
 
 class FilterAndSearchBar(val fragment: Fragment) {
 
-    private val filterDialog = FilterDialog(fragment)
-
     fun activeOrdersFragmentFilterAndSearchBar(binding: FragmentOrdersBinding) {
         binding.appBar.filterBtn.setOnClickListener {
+            val filterDialog = FilterDialog(fragment)
             filterDialog.showDialog()
         }
     }
 
     fun activeWarehouseFragmentFilterAndSearchBar(binding: FragmentWorkerWarehouseBinding) {
-        binding.appBar.backPageBtn.visibility = View.GONE
+
         binding.appBar.filterBtn.setOnClickListener {
-            filterDialog.showDialog()
+
         }
     }
 
@@ -32,6 +31,7 @@ class FilterAndSearchBar(val fragment: Fragment) {
         binding.appBar.backPageBtn.visibility = View.GONE
 
         binding.appBar.filterBtn.setOnClickListener {
+            val filterDialog = FilterDialog(fragment)
             filterDialog.showDialog()
         }
     }
@@ -45,6 +45,7 @@ class FilterAndSearchBar(val fragment: Fragment) {
         }
 
         binding.appBar.filterBtn.setOnClickListener {
+            val filterDialog = FilterDialog(fragment)
             filterDialog.showDialog()
         }
     }
