@@ -42,7 +42,7 @@ class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
         initObserver()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentOrdersPageBinding.inflate(inflater, container, false)
         ordersAdapter.addLoadStateListener { loadStateManager(it) }
 
@@ -71,7 +71,7 @@ class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
         ordersAdapter.refresh()
         if(checkConnected) {
             connectionDialog.showDialog(Constants.GET_PLANT_CYCLES,Constants.IS_LOADING,"")
-            ordersViewModel.getPlantCycles("", Hawk.get("my_plant_id"))
+            ordersViewModel.getPlantCycles("", 0)
         }
         else connectionDialog.showDialog(Constants.GET_PLANT_CYCLES, Constants.NO_INTERNET, "Tarmoq bilan aloqa mavjud emas !!")
     }

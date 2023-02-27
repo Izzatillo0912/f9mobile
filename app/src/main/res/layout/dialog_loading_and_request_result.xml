@@ -48,7 +48,7 @@
             android:fontFamily="@font/outfit_medium"
             android:gravity="center"
             android:text="Internetingiz yoqingligiga ishonchingi komilmi ?"
-            android:textColor="@color/black_text_color_100"
+            style="@style/mainColor"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/lottie_connection_dialog"
             app:layout_constraintStart_toStartOf="@+id/lottie_connection_dialog"

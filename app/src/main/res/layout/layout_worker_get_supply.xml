@@ -21,7 +21,7 @@
             android:id="@+id/get_supplier_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_search_and_filter_bar"
+            android:background="@drawable/rectangle_search_and_filter_day"
             android:fontFamily="@font/outfit_medium"
             android:hint="Taminotchi" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -41,7 +41,7 @@
             android:id="@+id/get_supply_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_search_and_filter_bar"
+            android:background="@drawable/rectangle_search_and_filter_day"
             android:fontFamily="@font/outfit_medium"
             android:hint="Kategoriya" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -61,7 +61,7 @@
             android:id="@+id/get_supply_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_search_and_filter_bar"
+            android:background="@drawable/rectangle_search_and_filter_day"
             android:fontFamily="@font/outfit_medium"
             android:hint="Mahsulot" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_search_and_filter_bar"
+            android:background="@drawable/rectangle_search_and_filter_day"
             android:ems="4"
             android:fontFamily="@font/outfit_medium"
             android:hint="Quantitiy"
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_search_and_filter_bar">
+            android:background="@drawable/rectangle_search_and_filter_day">
 
             <Spinner
                 android:id="@+id/get_supply_quantity_type_spinner"

@@ -9,6 +9,7 @@
     android:layout_marginEnd="15dp"
     android:layout_marginBottom="8dp"
     app:cardCornerRadius="10dp"
+    style="@style/inputColor"
     app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +24,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/outfit_bold"
             android:text="Xom ashyo nomi"
-            android:textColor="@color/black_text_color_100"
+            style="@style/mainColor"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,27 +54,25 @@
                 android:id="@+id/raw_material_history_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ripple_white_btn"
+                style="@style/whiteBtn"
                 android:fontFamily="@font/outfit_medium"
                 android:gravity="center"
                 android:padding="8dp"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Tarix"
-                android:textColor="@color/black_text_color_100" />
+                android:text="Tarix" />
 
             <TextView
                 android:id="@+id/raw_material_get_supply_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/ripple_black_btn"
+                style="@style/blackBtn"
                 android:fontFamily="@font/outfit_medium"
                 android:padding="8dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:text="Olish"
-                android:textColor="@color/white_text_color_100" />
+                android:text="Olish" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

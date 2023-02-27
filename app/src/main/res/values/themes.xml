@@ -8,4 +8,31 @@
 
     </style>
 
+    <style name="mainColor">
+        <item name="android:textColor">@color/black_text_color_100</item>
+        <item name="lottie_colorFilter">@color/black_text_color_100</item>
+        <item name="android:tint">@color/black_text_color_100</item>
+    </style>
+
+    <style name="whiteBtn">
+        <item name="android:textColor">@color/black_text_color_100</item>
+        <item name="android:background">@drawable/ripple_white_btn</item>
+    </style>
+
+    <style name="blackBtn">
+        <item name="android:textColor">@color/white_text_color_100</item>
+        <item name="android:background">@drawable/ripple_black_btn</item>
+        <item name="drawableTint">@color/white_text_color_100</item>
+    </style>
+
+    <style name="loginInputStyle">
+        <item name="android:textColor">@color/black_text_color_100</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="inputColor">
+        <item name="android:textColor">@color/black_text_color_100</item>
+        <item name="android:background">@drawable/rectangle_search_and_filter_day</item>
+    </style>
+
 </resources>
