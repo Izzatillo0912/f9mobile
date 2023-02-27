@@ -8,6 +8,7 @@
     android:layout_marginTop="8dp"
     android:layout_marginEnd="15dp"
     android:layout_marginBottom="8dp"
+    style="@style/inputColor"
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp">
 
@@ -33,7 +34,7 @@
                 android:id="@+id/warehouse_category_image"
                 android:layout_width="70dp"
                 android:layout_height="60dp"
-                android:background="@drawable/rectangle_search_and_filter_bar"
+                style="@style/inputColor"
                 app:srcCompat="@drawable/f9_logo" />
         </androidx.cardview.widget.CardView>
 
@@ -54,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/outfit_bold"
                 android:text="Categoriya nomi"
-                android:textColor="@color/black_text_color_100"
+                style="@style/mainColor"
                 android:textSize="16sp" />
 
             <TextView
@@ -71,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/ripple_white_btn"
+            style="@style/whiteBtn"
             android:clickable="true"
             android:focusable="true"
             android:padding="10dp"

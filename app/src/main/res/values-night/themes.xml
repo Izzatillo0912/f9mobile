@@ -4,4 +4,38 @@
 
         <item name="android:windowTranslucentNavigation" tools:ignore="NewApi">@android:color/white</item>
     </style>
+
+    <style name="mainColor">
+        <item name="android:textColor">@color/white_text_color_100</item>
+        <item name="lottie_colorFilter">@color/white_text_color_100</item>
+        <item name="android:tint">@color/white_text_color_100</item>
+    </style>
+
+    <style name="loginInputStyle">
+        <item name="android:textColor">@color/black_text_color_100</item>
+        <item name="android:background">@color/black</item>
+        <item name="cardBackgroundColor">@color/black</item>
+    </style>
+
+    <style name="whiteBtn">
+        <item name="android:textColor">@color/white_text_color_100</item>
+        <item name="android:background">@drawable/ripple_black_btn</item>
+        <item name="lottie_colorFilter">@color/white</item>
+        <item name="tint">@color/white_text_color_100</item>
+        <item name="drawableTint">@color/white_text_color_100</item>
+    </style>
+
+    <style name="blackBtn">
+        <item name="android:textColor">@color/black_text_color_100</item>
+        <item name="android:background">@drawable/ripple_white_btn</item>
+        <item name="drawableTint">@color/black_text_color_100</item>
+    </style>
+
+    <style name="inputColor">
+        <item name="android:textColor">@color/white_text_color_100</item>
+        <item name="android:background">@drawable/rectangle_search_and_filter_night</item>
+        <item name="cardBackgroundColor">@drawable/rectangle_search_and_filter_night</item>
+        <item name="drawableTint">@color/white_text_color_100</item>
+    </style>
+
 </resources>

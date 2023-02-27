@@ -9,4 +9,7 @@
     <color name="night_btn_text_color">#AAABAE</color>
     <color name="night_btn_background_tint">#182A31</color>
     <color name="night_text_color">#E1E5E8</color>
+
+    <color name="day_input_background_color">#F4F7F8</color>
+    <color name="night_input_background_color">#212121</color>
 </resources>
