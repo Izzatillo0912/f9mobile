@@ -36,7 +36,7 @@
             android:layout_marginStart="20dp"
             android:fontFamily="@font/bebas_neue"
             android:text="Ishchining ism familyasi"
-            android:textColor="@color/black_text_color_100"
+            style="@style/mainColor"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/worker_image_card"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +50,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
+            style="@style/loginInputStyle"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +79,6 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/rectangle_search_and_filter_bar"
                     android:drawableEnd="@drawable/ic_edit"
                     android:ems="10"
                     android:fontFamily="@font/outfit_regular"
@@ -87,9 +87,8 @@
                     android:padding="10dp"
                     android:paddingEnd="20dp"
                     android:text="Ishchingi ismi"
-                    android:textColor="@color/black_text_color_100"
-                    android:textSize="16sp"
-                    app:drawableTint="@color/black_text_color_100" />
+                    style="@style/inputColor"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/textView5"
@@ -108,7 +107,6 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/rectangle_search_and_filter_bar"
                     android:drawableEnd="@drawable/ic_edit"
                     android:ems="10"
                     android:fontFamily="@font/outfit_regular"
@@ -117,9 +115,8 @@
                     android:padding="10dp"
                     android:paddingEnd="20dp"
                     android:text="Ishchingi ismi"
-                    android:textColor="@color/black_text_color_100"
                     android:textSize="16sp"
-                    app:drawableTint="@color/black_text_color_100" />
+                    style="@style/inputColor" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -146,7 +143,8 @@
                         android:id="@+id/worker_edit_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rectangle_search_and_filter_bar"
+                        style="@style/inputColor"
+                        android:hint="Parol"
                         android:paddingTop="0dp"
                         android:paddingBottom="0dp"
                         android:password="true"
@@ -180,9 +178,8 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/ripple_white_btn"
+                    style="@style/inputColor"
                     android:drawableEnd="@drawable/ic_add"
-                    android:drawableTint="@color/white_text_color_100"
                     android:fontFamily="@font/outfit_medium"
                     android:gravity="center"
                     android:paddingStart="20dp"
@@ -190,9 +187,7 @@
                     android:paddingEnd="20dp"
                     android:paddingBottom="15dp"
                     android:text="Telefon raqam qo'shish"
-                    android:textColor="@color/black_text_color_100"
-                    android:textSize="16sp"
-                    app:drawableTint="@color/black_text_color_100" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/worker_info_change_btn"
@@ -201,7 +196,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/ripple_black_btn"
+                    style="@style/blackBtn"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_autorenew"
                     android:focusable="true"
@@ -212,8 +207,6 @@
                     android:paddingEnd="20dp"
                     android:paddingBottom="15dp"
                     android:text="O'zgartirish"
-                    android:textColor="@color/white_text_color_100"
-                    app:drawableTint="@color/white_text_color_100"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -231,6 +224,7 @@
             android:layout_marginBottom="30dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="10dp"
+            style="@style/loginInputStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -257,7 +251,7 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/rectangle_search_and_filter_bar">
+                    style="@style/inputColor">
 
                     <Spinner
                         android:id="@+id/my_plants_spinner"
@@ -285,7 +279,7 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/rectangle_search_and_filter_bar">
+                    style="@style/inputColor">
 
                     <Spinner
                         android:id="@+id/app_language_spinner"
@@ -313,7 +307,7 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/rectangle_search_and_filter_bar">
+                    style="@style/inputColor">
 
                     <Spinner
                         android:id="@+id/theme_mode_spinner"

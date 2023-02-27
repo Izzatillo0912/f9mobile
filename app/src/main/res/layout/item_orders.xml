@@ -8,6 +8,7 @@
     android:layout_marginTop="8dp"
     android:layout_marginEnd="15dp"
     android:layout_marginBottom="8dp"
+    style="@style/loginInputStyle"
     app:cardCornerRadius="10dp"
     app:cardElevation="4dp">
 
@@ -33,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
+                style="@style/inputColor"
                 app:srcCompat="@drawable/login_furniture" />
 
         </androidx.cardview.widget.CardView>
@@ -69,7 +71,7 @@
                     android:fontFamily="@font/outfit_medium"
                     android:gravity="center|end"
                     android:text="Mahsulot nomi"
-                    android:textColor="@color/black_text_color_100"
+                    style="@style/mainColor"
                     android:textSize="13sp" />
             </LinearLayout>
 
@@ -94,7 +96,7 @@
                     android:fontFamily="@font/outfit_medium"
                     android:gravity="center|end"
                     android:text="Mijozning ismi"
-                    android:textColor="@color/black_text_color_100"
+                    style="@style/mainColor"
                     android:textSize="13sp" />
             </LinearLayout>
 
@@ -119,7 +121,7 @@
                     android:fontFamily="@font/outfit_medium"
                     android:gravity="center|end"
                     android:text="09/12/2022  (15:00)"
-                    android:textColor="@color/black_text_color_100"
+                    style="@style/mainColor"
                     android:textSize="12sp" />
             </LinearLayout>
 

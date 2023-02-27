@@ -90,6 +90,8 @@ class LoginFragment : Fragment(), ConnectionDialog.RefreshClicked {
                     Hawk.put("user_id", it.id)
                     Hawk.put("user_username", binding.loginUsernameInput.text.toString())
                     Hawk.put("user_password", binding.loginPasswordInput.text.toString())
+                    Hawk.put("my_plant_id", it.plant_users[0].plant.id)
+                    Hawk.put("my_plant_name", it.plant_users[0].plant.name)
                     connectionDialog.animationChanger(Constants.IS_CHECK_API, "Shaxsingiz tasdiqlandi ! Xush kelibsiz")
                     object : CountDownTimer(1000, 1000) {
                         override fun onTick(millisUntilFinished: Long) {}
