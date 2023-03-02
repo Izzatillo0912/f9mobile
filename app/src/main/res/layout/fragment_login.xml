@@ -24,8 +24,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginBottom="30dp"
         android:fontFamily="@font/bebas_neue"
-        android:text="F9 Mobile / Login"
-        android:textSize="34sp"
+        android:text="@string/loginTitle"
+        android:textSize="26sp"
         style="@style/mainColor"
         app:layout_constraintBottom_toTopOf="@+id/login_input_card"
         app:layout_constraintStart_toStartOf="parent" />
@@ -70,7 +70,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/outfit_regular"
-                        android:hint="Login"
+                        android:hint="@string/loginHint"
                         style="@style/loginInputStyle"
                         android:inputType="textPersonName"
                         android:textCursorDrawable="@null" />
@@ -95,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/outfit_regular"
-                        android:hint="Password"
+                        android:hint="@string/passwordHint"
                         android:inputType="textPassword"
                         style="@style/loginInputStyle"
                         android:textCursorDrawable="@null" />
@@ -115,7 +115,7 @@
                 android:gravity="center"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
-                android:text="Kirish"
+                android:text="@string/login_btn"
                 android:textColor="@color/white_text_color_100"
                 android:textSize="18sp" />
         </LinearLayout>
