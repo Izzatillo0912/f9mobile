@@ -6,5 +6,6 @@ data class ProductModel(
     val unit : Boolean,
     val product_type_id : Int,
     val id : Int,
-    val olchov_id : Int
+    val olchov_id : Int,
+    val olchov_name : String
 )

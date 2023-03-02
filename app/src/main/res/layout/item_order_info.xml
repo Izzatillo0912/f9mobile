@@ -14,15 +14,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="15dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/image_card"
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:visibility="gone"
             app:cardCornerRadius="10dp"
             app:cardElevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,10 +33,10 @@
 
             <ImageView
                 android:id="@+id/info_image"
+                style="@style/inputColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
-                style="@style/inputColor"
                 app:srcCompat="@drawable/login_furniture" />
 
         </androidx.cardview.widget.CardView>
@@ -42,7 +44,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/image_card"
@@ -64,20 +67,20 @@
 
                 <TextView
                     android:id="@+id/info_product_name"
+                    style="@style/mainColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/outfit_medium"
                     android:gravity="center|end"
                     android:text="Mahsulot nomi"
-                    style="@style/mainColor"
                     android:textSize="15sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -89,15 +92,58 @@
 
                 <TextView
                     android:id="@+id/info_quantity"
+                    style="@style/mainColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/outfit_medium"
                     android:gravity="center|end"
                     android:text="Mahsulot hajmi"
-                    style="@style/mainColor"
                     android:textSize="13sp" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Sizda bor :"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/info_your_quantity"
+                    style="@style/mainColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/outfit_medium"
+                    android:gravity="center|end"
+                    android:text="Mahsulot hajmi"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/order_get_supply_btn"
+                style="@style/whiteBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/outfit_medium"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Olish"
+                android:textSize="14sp"
+                android:visibility="gone"
+                tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,7 +38,7 @@ class ConnectionError(val context: Context) {
                 if (t.code() == 401) { connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED,"Login yoki parol noto'g'ri !!") }
                 else if (t.code() == 500) { connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED, "Malumotlarar mavjuda emas !!") }
                 else if (t.code() == 404) { connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED, "Malumotlar manzili topilmadi !!") }
-                else connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED, "So'rov bilan xatolik mavjud !!")
+                else connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED, errorMassage)
 
             }
             is SocketTimeoutException, is InterruptedIOException, is TimeoutException ->{

@@ -19,22 +19,20 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/image_card"
             android:layout_width="100dp"
-            android:layout_height="110dp"
+            android:layout_height="90dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/order_image"
+                style="@style/inputColor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                style="@style/inputColor"
                 app:srcCompat="@drawable/login_furniture" />
 
         </androidx.cardview.widget.CardView>
@@ -76,11 +74,35 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/outfit_regular"
+                    android:text="Buyurtmachi :"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/customer_name"
+                    style="@style/mainColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/outfit_medium"
+                    android:gravity="center|end"
+                    android:text="Buyurtmachi ismi"
+                    android:textSize="13sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -106,7 +128,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -128,12 +150,44 @@
                     android:textSize="13sp" />
             </LinearLayout>
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/image_card"
+            app:layout_constraintTop_toBottomOf="@+id/image_card">
+
+            <TextView
+                android:id="@+id/production_order_info_btn"
+                style="@style/whiteBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/outfit_medium"
+                android:gravity="center"
+                android:minHeight="38dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="Buyurtma hadida"
+                android:textSize="12sp"
+                tools:ignore="TouchTargetSizeCheck" />
+
             <TextView
                 android:id="@+id/production_btn"
                 style="@style/blackBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/outfit_medium"
                 android:gravity="center"
                 android:minHeight="38dp"
