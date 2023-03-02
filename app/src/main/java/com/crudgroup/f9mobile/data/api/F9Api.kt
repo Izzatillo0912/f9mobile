@@ -2,6 +2,8 @@ package com.crudgroup.f9mobile.data.api
 
 import com.crudgroup.f9mobile.presentation.fragments.getSupplyFragments.model.*
 import com.crudgroup.f9mobile.presentation.fragments.loginFragment.model.Token
+import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.ProductionCreateModel
+import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.ProductionOrderInfoModel
 import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.ProductionOrdersModel
 import com.crudgroup.f9mobile.presentation.fragments.roleFragments.model.MeInfoChangeModel
 import com.crudgroup.f9mobile.presentation.fragments.workerHistories.model.GetSupplyHistoryModel
@@ -39,8 +41,21 @@ interface F9Api {
         @Query("page") page : Int,
         @Query("limit") limit : Int,
         @Query("search") search: String,
-//        @Query("plant_id") plant_id: Int
+        @Query("plant_id") plant_id: Int
     ):Response<PaginationModel<ProductionOrdersModel>>
+
+    @GET("components")
+    suspend fun getProductionOrderInfo(
+        @Query("page") page : Int,
+        @Query("limit") limit : Int,
+        @Query("search") search: String,
+        @Query("cycle_id") cycle_id: Int
+    ): Response<PaginationModel<ProductionOrderInfoModel>>
+
+    @POST("production/create")
+    suspend fun productionCreate(
+        @Body productionCreateModel: ProductionCreateModel
+    ) : Response<ResponseDetail>
 
 
     @GET("material_types")

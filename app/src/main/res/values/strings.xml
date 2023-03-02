@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">F9 Mobile</string>
+
+    <string name="loginTitle">F9 Мобильді / Кіру</string>
+    <string name="loginHint">Кіру</string>
+    <string name="passwordHint">Құпия сөз</string>
+    <string name="login_btn">Енгізіңіз</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

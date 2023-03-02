@@ -9,5 +9,18 @@
         android:id="@+id/ordersFragment"
         android:name="com.crudgroup.f9mobile.presentation.fragments.ordersFragment.OrdersFragment"
         android:label="fragment_orders"
-        tools:layout="@layout/fragment_orders" />
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_productionOrderInfoFragment"
+            app:destination="@id/productionOrderInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productionOrderInfoFragment"
+        android:name="com.crudgroup.f9mobile.presentation.fragments.ordersFragment.ProductionOrderInfoFragment"
+        android:label="fragment_production_order_info"
+        tools:layout="@layout/fragment_production_order_info" >
+        <action
+            android:id="@+id/action_productionOrderInfoFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+    </fragment>
 </navigation>

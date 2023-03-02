@@ -19,6 +19,8 @@ class OrdersAdapter(private val plantCyclesClickListener: PlantCyclesClickListen
         fun productionClicked(productionOrdersModel: ProductionOrdersModel)
 
         fun productImageClicked(productionOrdersModel: ProductionOrdersModel)
+
+        fun productionOrderInfo(productionOrdersModel: ProductionOrdersModel)
     }
 
     class ViewHolder(val binding: ItemOrdersBinding) : RecyclerView.ViewHolder(binding.root)
@@ -48,6 +50,7 @@ class OrdersAdapter(private val plantCyclesClickListener: PlantCyclesClickListen
 
                 productionOrdersName.text = item.product_name
                 productionOrdersVolume.text = "${item.quantity}  " + item.olchov_name
+                customerName.text = item.customer_name
                 cycleName.text = item.cycle_name
 
                 productionBtn.setOnClickListener {
@@ -56,6 +59,10 @@ class OrdersAdapter(private val plantCyclesClickListener: PlantCyclesClickListen
 
                 orderImage.setOnClickListener {
                     plantCyclesClickListener.productImageClicked(item)
+                }
+
+                productionOrderInfoBtn.setOnClickListener {
+                    plantCyclesClickListener.productionOrderInfo(item)
                 }
             }
         }
