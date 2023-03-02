@@ -17,12 +17,12 @@ class WarehouseRepository {
 
     private val api: F9Api by lazy { RetrofitInstance.api }
 
-    fun getWarehouseCategory(searchText : String, connectionDialog: ConnectionDialog): LiveData<PagingData<WarehouseCategoryModel>> {
+    fun getWarehouseCategory(searchText : String, myPlantId : Int, connectionDialog: ConnectionDialog): LiveData<PagingData<WarehouseCategoryModel>> {
         return Pager(config = PagingConfig(
             pageSize = Constants.PAGE_SIZE,
             enablePlaceholders = false,
             initialLoadSize = Constants.PAGE_SIZE),
-            pagingSourceFactory = { WarehouseCategoryPaging(api, searchText, connectionDialog) }
+            pagingSourceFactory = { WarehouseCategoryPaging(api, searchText,myPlantId, connectionDialog) }
         ).liveData
     }
 }

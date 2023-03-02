@@ -24,19 +24,23 @@ import com.crudgroup.f9mobile.presentation.fragments.workerWarehouse.paginAndAnd
 import com.crudgroup.f9mobile.presentation.otherComponents.*
 import com.crudgroup.f9mobile.presentation.otherComponents.dialog.ConnectionDialog
 import com.crudgroup.f9mobile.presentation.otherComponents.dialog.FilterDialog
+import com.crudgroup.f9mobile.presentation.otherComponents.dialog.ImageViewDialog
 import com.crudgroup.f9mobile.presentation.otherComponents.dialog.TimberCalculatorDialog
+import com.orhanobut.hawk.Hawk
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 
-class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, WarehouseCategoryAdapter.CategoryItemClickListener {
+class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked,
+    WarehouseCategoryAdapter.CategoryItemClickListener, FilterDialog.FilterBtnClicked {
 
     private lateinit var binding: FragmentWorkerWarehouseBinding
     private lateinit var warehouseViewModel : WarehouseViewModel
     private lateinit var connectivityManager: MyConnectivityManager
     private lateinit var filterDialog: FilterDialog
+    private lateinit var imageViewDialog: ImageViewDialog
     private lateinit var connectionError: ConnectionError
     private lateinit var connectionDialog: ConnectionDialog
     private lateinit var getSupplyDialog: GetSupplyDialog
@@ -53,7 +57,8 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
         connectionError = ConnectionError(requireContext())
         connectionDialog = ConnectionDialog(requireContext(), this)
         getSupplyDialog = GetSupplyDialog(this)
-        filterDialog = FilterDialog(this)
+        filterDialog = FilterDialog(this, this)
+        imageViewDialog = ImageViewDialog(requireContext())
         warehouseViewModel = ViewModelProvider(this)[WarehouseViewModel :: class.java]
 
         initObservers()
@@ -63,7 +68,9 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWorkerWarehouseBinding.inflate(inflater, container, false)
         binding.appBar.backPageBtn.visibility = View.GONE
+        binding.appBar.filterBtn.paddingEnd            
         binding.appBar.pageTitle.text = "Hom ashyo turlari"
+        imageViewDialog.activeDialog()
         return binding.root
     }
 
@@ -98,7 +105,7 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
         contentFlow
             .debounce(500)
             .collect {
-                warehouseViewModel.getWarehouseCategory(it, connectionDialog).observe(viewLifecycleOwner){
+                warehouseViewModel.getWarehouseCategory(it, Hawk.get("my_plant_id"), connectionDialog).observe(viewLifecycleOwner){
                     lifecycleScope.launch {
                         warehouseCategoryAdapter.submitData(it)
                     }
@@ -116,7 +123,7 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
         connectivityManager.observe(this) { checkConnection = it }
 
         if(checkConnection){
-            warehouseViewModel.getWarehouseCategory("", connectionDialog).observe(this){
+            warehouseViewModel.getWarehouseCategory("", Hawk.get("my_plant_id"), connectionDialog).observe(this){
                 lifecycleScope.launch {
                     warehouseCategoryAdapter.submitData(it)
                 }
@@ -130,7 +137,7 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
     private fun refreshAllData(){
         binding.refreshLayout.isRefreshing = true
         warehouseCategoryAdapter.refresh()
-        if(checkConnection) warehouseViewModel.getWarehouseCategory("", connectionDialog)
+        if(checkConnection) warehouseViewModel.getWarehouseCategory("", Hawk.get("my_plant_id"), connectionDialog)
         else connectionDialog.showDialog(Constants.GET_CATEGORIES, Constants.NO_INTERNET, "Tarmoq bilan aloqa mavjud emas !!")
     }
 
@@ -188,8 +195,21 @@ class WorkerWarehouseFragment : Fragment(), ConnectionDialog.RefreshClicked, War
         findNavController().navigate(R.id.action_workerWarehouseFragment_to_workerRawMaterialsFragment, bundle)
     }
 
+    override fun itemImageClicked(warehouseCategoryModel: WarehouseCategoryModel) {
+        val image = Constants.IMAGE_BASE_URL + "material_types/" + warehouseCategoryModel.Material_Type.image
+        imageViewDialog.showImage(image)
+    }
+
     override fun onResume() {
         super.onResume()
         binding.appBar.searchInput.text.clear()
+    }
+
+    override fun clearFilterClicked() {
+
+    }
+
+    override fun setFilterClicked(fromDate: String, toDate: String) {
+
     }
 }

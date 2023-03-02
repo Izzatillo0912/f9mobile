@@ -19,7 +19,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/image_card"
             android:layout_width="100dp"
-            android:layout_height="110dp"
+            android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
@@ -30,20 +30,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/order_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:id="@+id/info_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
                 style="@style/inputColor"
                 app:srcCompat="@drawable/login_furniture" />
 
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="12dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginEnd="10dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/image_card"
@@ -54,33 +53,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/outfit_regular"
-                    android:text="Jarayon :"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/cycle_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/outfit_medium"
-                    android:gravity="center|end"
-                    android:text="Zina ishalb chiqarish"
-                    style="@style/mainColor"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -88,25 +60,24 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/outfit_regular"
                     android:text="Nomi :"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/production_orders_name"
-                    style="@style/mainColor"
+                    android:id="@+id/info_product_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/outfit_medium"
                     android:gravity="center|end"
                     android:text="Mahsulot nomi"
-                    android:textSize="13sp" />
+                    style="@style/mainColor"
+                    android:textSize="15sp" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -114,35 +85,69 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/outfit_regular"
                     android:text="Hajmi :"
-                    android:textSize="12sp" />
+                    android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/production_orders_volume"
-                    style="@style/mainColor"
+                    android:id="@+id/info_quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/outfit_medium"
                     android:gravity="center|end"
                     android:text="Mahsulot hajmi"
+                    style="@style/mainColor"
                     android:textSize="13sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/production_btn"
-                style="@style/blackBtn"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/outfit_medium"
-                android:gravity="center"
-                android:minHeight="38dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Ishlab chiqarish"
-                android:textSize="12sp" />
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/input_volume"
+                    style="@style/inputColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:hint="0"
+                    android:inputType="numberDecimal"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="30dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/production_btn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/input_volume_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="KUB"
+                    app:layout_constraintBottom_toBottomOf="@+id/input_volume"
+                    app:layout_constraintEnd_toEndOf="@+id/input_volume"
+                    app:layout_constraintTop_toTopOf="@+id/input_volume" />
+
+                <ImageView
+                    android:id="@+id/production_btn"
+                    style="@style/blackBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_check"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

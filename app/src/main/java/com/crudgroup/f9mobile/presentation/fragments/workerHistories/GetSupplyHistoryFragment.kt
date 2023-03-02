@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 
-class GetSupplyHistoryFragment : Fragment(), ConnectionDialog.RefreshClicked {
+class GetSupplyHistoryFragment : Fragment(), ConnectionDialog.RefreshClicked, FilterDialog.FilterBtnClicked {
 
     private lateinit var binding: FragmentGetSupplyHistoryBinding
     private lateinit var filterDialog: FilterDialog
@@ -41,7 +41,7 @@ class GetSupplyHistoryFragment : Fragment(), ConnectionDialog.RefreshClicked {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        filterDialog = FilterDialog(this)
+        filterDialog = FilterDialog(this, this)
         connectionDialog = ConnectionDialog(requireContext(), this)
         connectionError = ConnectionError(requireContext())
         connectivityManager = MyConnectivityManager(requireContext())
@@ -171,5 +171,17 @@ class GetSupplyHistoryFragment : Fragment(), ConnectionDialog.RefreshClicked {
     override fun onResume() {
         super.onResume()
         binding.appBar.searchInput.text.clear()
+    }
+
+    override fun clearFilterClicked() {
+        refreshAllData()
+    }
+
+    override fun setFilterClicked(fromDate: String, toDate: String) {
+        historyViewModel.getSupplyHistory(0,fromDate, toDate, "").observe(viewLifecycleOwner){
+            lifecycleScope.launch {
+                getSupplyHistoryAdapter.submitData(it)
+            }
+        }
     }
 }

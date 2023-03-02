@@ -15,6 +15,8 @@ class WarehouseCategoryAdapter(private val categoryItemClickListener: CategoryIt
 
     interface CategoryItemClickListener {
         fun categoryItemClicked(warehouseCategoryModel: WarehouseCategoryModel)
+
+        fun itemImageClicked(warehouseCategoryModel: WarehouseCategoryModel)
     }
 
     class ViewHolder(val binding: ItemWarehouseCategoryBinding) : RecyclerView.ViewHolder(binding.root)
@@ -38,6 +40,10 @@ class WarehouseCategoryAdapter(private val categoryItemClickListener: CategoryIt
 
                 categoryRightArrow.setOnClickListener {
                     categoryItemClickListener.categoryItemClicked(item)
+                }
+
+                warehouseCategoryImage.setOnClickListener {
+                    categoryItemClickListener.itemImageClicked(item)
                 }
             }
         }

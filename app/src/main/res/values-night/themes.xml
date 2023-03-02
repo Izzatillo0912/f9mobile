@@ -38,6 +38,7 @@
     <style name="blackBtn">
         <item name="android:textColor">@color/black_text_color_100</item>
         <item name="android:background">@drawable/ripple_white_btn</item>
+        <item name="android:tint">@color/black_text_color_100</item>
         <item name="drawableTint">@color/black_text_color_100</item>
     </style>
 
@@ -53,6 +54,11 @@
 
     <style name="cardItemColor">
         <item name="cardBackgroundColor">@color/black_text_color_100</item>
+    </style>
+
+    <style name="dialogCloseBtnTheme">
+        <item name="android:background">@drawable/ripple_dialog_close_night</item>
+        <item name="android:tint">@color/white</item>
     </style>
 
 </resources>

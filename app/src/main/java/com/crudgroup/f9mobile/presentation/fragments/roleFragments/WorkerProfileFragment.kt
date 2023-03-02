@@ -1,6 +1,7 @@
 package com.crudgroup.f9mobile.presentation.fragments.roleFragments
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,13 +11,15 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.crudgroup.f9mobile.R
 import com.crudgroup.f9mobile.databinding.FragmentWorkerProfileBinding
-import com.crudgroup.f9mobile.presentation.fragments.getSupplyFragments.model.PlantModel
-import com.crudgroup.f9mobile.presentation.fragments.loginFragment.model.LoginViewModel
+import com.crudgroup.f9mobile.presentation.fragments.roleFragments.model.MeInfoChangeModel
+import com.crudgroup.f9mobile.presentation.fragments.roleFragments.model.WorkerViewModel
 import com.crudgroup.f9mobile.presentation.otherComponents.AllAnimations
 import com.crudgroup.f9mobile.presentation.otherComponents.ApiResult.Companion.error
 import com.crudgroup.f9mobile.presentation.otherComponents.ApiResult.Companion.success
@@ -24,12 +27,11 @@ import com.crudgroup.f9mobile.presentation.otherComponents.ConnectionError
 import com.crudgroup.f9mobile.presentation.otherComponents.Constants
 import com.crudgroup.f9mobile.presentation.otherComponents.MyConnectivityManager
 import com.crudgroup.f9mobile.presentation.otherComponents.adapter.PhoneNumberAdapter
-import com.crudgroup.f9mobile.presentation.otherComponents.adapter.phoneNumberList
 import com.crudgroup.f9mobile.presentation.otherComponents.dialog.ConnectionDialog
 import com.crudgroup.f9mobile.presentation.otherComponents.model.MeInfoModel
-import com.crudgroup.f9mobile.presentation.otherComponents.model.PhoneNumberModel
 import com.crudgroup.f9mobile.presentation.otherComponents.model.PlantsModel
 import com.orhanobut.hawk.Hawk
+import kotlinx.coroutines.launch
 
 
 class WorkerProfileFragment : Fragment(), ConnectionDialog.RefreshClicked {
@@ -37,7 +39,7 @@ class WorkerProfileFragment : Fragment(), ConnectionDialog.RefreshClicked {
     private lateinit var binding: FragmentWorkerProfileBinding
     private lateinit var allAnimations: AllAnimations
     private lateinit var phoneNumberAdapter: PhoneNumberAdapter
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var workerViewModel: WorkerViewModel
     private lateinit var connectivityManager: MyConnectivityManager
     private lateinit var connectionDialog: ConnectionDialog
     private lateinit var connectionError: ConnectionError
@@ -46,11 +48,14 @@ class WorkerProfileFragment : Fragment(), ConnectionDialog.RefreshClicked {
     private var themeList = arrayListOf("Tongi rejim", "Tungi rejim")
     private var languageList = arrayListOf("Qozoq tili", "Rus tili")
     private var checkConnection = true
+    var name : String? = null
+    var username : String? = null
+    var password : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         allAnimations = AllAnimations(requireContext())
-        loginViewModel = ViewModelProvider(this)[LoginViewModel :: class.java]
+        workerViewModel = ViewModelProvider(this)[WorkerViewModel :: class.java]
         connectivityManager = MyConnectivityManager(requireContext())
         connectionDialog = ConnectionDialog(requireContext(), this)
         connectionError = ConnectionError(requireContext())
@@ -64,7 +69,7 @@ class WorkerProfileFragment : Fragment(), ConnectionDialog.RefreshClicked {
 
         if (checkConnection) {
             connectionDialog.showDialog(Constants.GET_ME_INFO, Constants.IS_LOADING, "Iltimos kuting !\n Malumotlar qidirilmoqda..")
-            loginViewModel.getMeInfo(Hawk.get("user_id"))
+            workerViewModel.getMeInfo(Hawk.get("my_id"))
         }else {
             connectionDialog.showDialog(Constants.GET_ME_INFO, Constants.IS_NOT_CHECKED, "Internet aloqasi mavjud emas !")
         }
@@ -126,20 +131,43 @@ class WorkerProfileFragment : Fragment(), ConnectionDialog.RefreshClicked {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (themeList[position] != Hawk.get("theme_mode")) {
                     Hawk.put("theme_mode", themeList[position])
+                    when(position) {
+                        0 -> {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                        }
+                        1 -> {
+                            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        }
+                    }
                 }
             }
         }
 
-        binding.addPhoneNumberBtn.setOnClickListener {
-            phoneNumberAdapter.addPhoneNumber()
-        }
-
         binding.workerInfoChangeBtn.setOnClickListener {
-            Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT).show()
+
+            try {
+                name = binding.workerEditName.text.toString()
+                username = binding.workerEditUsername.text.toString()
+                password = binding.workerEditPassword.text.toString()
+
+                if (name!!.isEmpty()) name = Constants.meInfoModel!!.name
+                if (username!!.isEmpty()) username = Constants.meInfoModel!!.username
+                if (password!!.isEmpty()) password = Hawk.get("my_password")
+
+                val changeModel =  MeInfoChangeModel(name!!, username!!, password.toString())
+
+                Log.e("ChangeInfo", "Change: $changeModel")
+                workerViewModel.updateMeInfo(Hawk.get("my_id"),changeModel)
+                connectionDialog.showDialog(Constants.CHANGE_ME_INFO, Constants.IS_LOADING, "So'rov yuborilmoqda..")
+
+            }catch (n : NumberFormatException) {
+                Toast.makeText(requireContext(), "Malumotlarni to'g'ri to'ldiring", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         binding.goLoginPage.setOnClickListener {
-            findNavController().navigate(R.id.action_workerFragment_to_loginFragment)
+            Constants.loginBtnListener.postValue(true)
         }
 
     }
@@ -149,18 +177,34 @@ class WorkerProfileFragment : Fragment(), ConnectionDialog.RefreshClicked {
         connectivityManager.checkConnection()
         connectivityManager.observe(this) { checkConnection = it }
 
-        loginViewModel.getMeInfo.observe(this) { apiResult ->
+        workerViewModel.getMeInfo.observe(this) { apiResult ->
             apiResult.success {
                 connectionDialog.dismissDialog()
-                if (it != null) {
-                    getMeInfo(it)
-                }
+                if (it != null) getMeInfo(it)
             }
             apiResult.error {
                 if (!checkConnection) connectionDialog.showDialog(Constants.GET_ME_INFO, Constants.NO_INTERNET, "Internet aloqasi mavjud emas !")
                 else connectionError.checkConnectionError(it, connectionDialog, Constants.GET_ME_INFO)
             }
         }
+
+        workerViewModel.updateMeInfo.observe(this) {apiResult ->
+            apiResult.success {
+                connectionDialog.showDialog("", Constants.IS_CHECK_API, "Malumotlaringiz o'zgartirildi !!")
+                workerViewModel.updateMeInfo = MutableLiveData()
+                object : CountDownTimer(1500, 1500){
+                    override fun onTick(millisUntilFinished: Long) {}
+                    override fun onFinish() {
+                        Constants.loginBtnListener.postValue(true)
+                        Toast.makeText(requireContext(), "O'zgarish sabsbli qayta logindan o'ting !", Toast.LENGTH_SHORT).show()
+                    }
+                }.start()
+            }
+            apiResult.error {
+                connectionError.checkConnectionError(it, connectionDialog, Constants.CHANGE_ME_INFO)
+            }
+        }
+
     }
 
     private fun getMeInfo(meInfoModel: MeInfoModel) {
@@ -169,9 +213,8 @@ class WorkerProfileFragment : Fragment(), ConnectionDialog.RefreshClicked {
         binding.phoneNumberRv.adapter = phoneNumberAdapter
         binding.workerEditName.setText(meInfoModel.name)
         binding.workerEditUsername.setText(meInfoModel.username)
-        binding.workerEditPassword.setText(Hawk.get<String>("user_password"))
+        binding.workerEditPassword.setText(Hawk.get<String>("my_password"))
         getPlantsList(meInfoModel.plant_users)
-
     }
 
     private fun getPlantsList(plantsList: ArrayList<PlantsModel>) {
@@ -187,10 +230,10 @@ class WorkerProfileFragment : Fragment(), ConnectionDialog.RefreshClicked {
     override fun connectDialogRefreshClicked(refreshType: String) {
         when(refreshType) {
             Constants.GET_ME_INFO -> {
-                loginViewModel.getMeInfo(Hawk.get("user_id"))
+                workerViewModel .getMeInfo(Hawk.get("my_id"))
             }
             Constants.CHANGE_ME_INFO -> {
-
+                workerViewModel.updateMeInfo(Hawk.get("my_id"), MeInfoChangeModel(name.toString(), username.toString(), password.toString()))
             }
         }
     }

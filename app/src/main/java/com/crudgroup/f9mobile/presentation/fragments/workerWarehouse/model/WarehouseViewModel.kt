@@ -11,7 +11,7 @@ class WarehouseViewModel : ViewModel() {
 
     private val repository = WarehouseRepository()
 
-    fun getWarehouseCategory(searchText : String, connectionDialog: ConnectionDialog): LiveData<PagingData<WarehouseCategoryModel>> {
-        return repository.getWarehouseCategory(searchText, connectionDialog)
+    fun getWarehouseCategory(searchText : String, myPlantId : Int, connectionDialog: ConnectionDialog): LiveData<PagingData<WarehouseCategoryModel>> {
+        return repository.getWarehouseCategory(searchText, myPlantId, connectionDialog)
     }
 }

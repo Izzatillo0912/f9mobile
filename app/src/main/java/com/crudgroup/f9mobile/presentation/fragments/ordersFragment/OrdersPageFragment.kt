@@ -6,23 +6,28 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
-import com.crudgroup.f9mobile.R
 import com.crudgroup.f9mobile.databinding.FragmentOrdersPageBinding
+import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.dialog.ProductionDialog
+import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.DetailModel
 import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.OrdersViewModel
+import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.ProductionOrdersModel
 import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.paginationAndAdapter.OrdersAdapter
+import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.paginationAndAdapter.ProductionAdapter
 import com.crudgroup.f9mobile.presentation.otherComponents.ConnectionError
 import com.crudgroup.f9mobile.presentation.otherComponents.Constants
 import com.crudgroup.f9mobile.presentation.otherComponents.MyConnectivityManager
 import com.crudgroup.f9mobile.presentation.otherComponents.MyLoadStateAdapter
 import com.crudgroup.f9mobile.presentation.otherComponents.dialog.ConnectionDialog
+import com.crudgroup.f9mobile.presentation.otherComponents.dialog.ImageViewDialog
 import com.orhanobut.hawk.Hawk
 import kotlinx.coroutines.launch
 
-class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
+class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked, OrdersAdapter.PlantCyclesClickListener, ProductionAdapter.ProductionClickListener {
 
 
     private lateinit var binding: FragmentOrdersPageBinding
@@ -30,7 +35,10 @@ class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
     private lateinit var connectionDialog: ConnectionDialog
     private lateinit var connectionError: ConnectionError
     private lateinit var ordersViewModel: OrdersViewModel
-    private val ordersAdapter: OrdersAdapter by lazy { OrdersAdapter() }
+    private lateinit var imageViewDialog: ImageViewDialog
+    private lateinit var productionAdapter: ProductionAdapter
+    private lateinit var productionDialog: ProductionDialog
+    private val ordersAdapter: OrdersAdapter by lazy { OrdersAdapter(this) }
     private var checkConnected = true
     private var placeHolderPermission = true
 
@@ -39,6 +47,8 @@ class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
         connectionDialog = ConnectionDialog(requireContext(), this)
         connectionError = ConnectionError(requireContext())
         connectivityManager = MyConnectivityManager(requireContext())
+        imageViewDialog = ImageViewDialog(requireContext())
+        productionDialog = ProductionDialog(requireContext())
         ordersViewModel = ViewModelProvider(this)[OrdersViewModel::class.java]
 
         initObserver()
@@ -46,7 +56,7 @@ class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentOrdersPageBinding.inflate(inflater, container, false)
-
+        imageViewDialog.activeDialog()
         return binding.root
     }
 
@@ -72,7 +82,7 @@ class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
         connectivityManager.observe(this) { checkConnected = it }
 
         if(checkConnected){
-            ordersViewModel.getPlantCycles("", Hawk.get("my_plant_id")).observe(this) {
+            ordersViewModel.getProductionOrders("", Hawk.get("my_plant_id")).observe(this) {
                 lifecycleScope.launch {
                     ordersAdapter.submitData(it)
                 }
@@ -84,7 +94,7 @@ class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
     private fun refreshAllData(){
         binding.refreshLayout.isRefreshing = true
         ordersAdapter.refresh()
-        if(checkConnected) ordersViewModel.getPlantCycles("",0)
+        if(checkConnected) ordersViewModel.getProductionOrders("",0)
         else connectionDialog.showDialog(Constants.GET_RAW_MATERIALS, Constants.NO_INTERNET, "Tarmoq bilan aloqa mavjud emas !!")
     }
 
@@ -133,5 +143,18 @@ class OrdersPageFragment : Fragment(), ConnectionDialog.RefreshClicked {
 
         if(checkConnected) { refreshAllData() }
         else connectionDialog.showDialog(Constants.GET_PLANT_CYCLES, Constants.NO_INTERNET, "Tarmoq bilan aloqa mavjud emas !!")
+    }
+
+    override fun productionClicked(productionOrdersModel: ProductionOrdersModel) {
+//        productionDialog.showDialog(productionAdapter, "Salom ")
+    }
+
+    override fun productImageClicked(productionOrdersModel: ProductionOrdersModel) {
+        val image = Constants.IMAGE_BASE_URL + "products/" + productionOrdersModel.product_image
+        imageViewDialog.showImage(image)
+    }
+
+    override fun checkProductionClicked(detailModel: DetailModel) {
+        Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
     }
 }
