@@ -30,19 +30,22 @@ class ConnectionError(val context: Context) {
     fun checkConnectionError(t: Throwable?, connectionDialog : ConnectionDialog, refreshType : String){
         when (t) {
             is HttpException -> {
-                Log.e("CheckConnection error : ", t.response().toString())
+                Log.d("CheckConnection error : ", t.response().toString())
 
                 val errorMassage = parseError(t.response()?.errorBody())
 
                 if (errorMassage.isEmpty()) { connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED,"So'rov bilan xatolik mavjud !!") }
-                else if (t.code() == 401) { connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED,"Login yoki parol noto'g'ri !!") }
+                if (t.code() == 401) { connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED,"Login yoki parol noto'g'ri !!") }
                 else if (t.code() == 500) { connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED, "Malumotlarar mavjuda emas !!") }
                 else if (t.code() == 404) { connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED, "Malumotlar manzili topilmadi !!") }
-                else connectionDialog.animationChanger(Constants.IS_NOT_CHECKED, "So'rov bilan xatolik mavjud !!")
+                else connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED, "So'rov bilan xatolik mavjud !!")
 
             }
-            is SocketTimeoutException, is InterruptedIOException, is TimeoutException ->
+            is SocketTimeoutException, is InterruptedIOException, is TimeoutException ->{
+                Log.d("CheckConnection Error :" ," TIME OUT" )
                 connectionDialog.showDialog(refreshType, Constants.IS_NOT_CHECKED, "Tarmoqqa ulanish vaqti tugadi ! Qayta urunib ko'ring")
+            }
+
 
             else -> {
                 Log.e("checkConnectionError: ", t?.localizedMessage.toString())

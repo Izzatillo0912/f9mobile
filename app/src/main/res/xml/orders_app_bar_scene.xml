@@ -43,6 +43,7 @@
             android:id="@+id/filter_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:visibility="gone"
             motion:layout_constraintBottom_toBottomOf="@id/orders_app_bar_background"
             motion:layout_constraintTop_toTopOf="@+id/orders_app_bar_background"
             motion:layout_constraintEnd_toEndOf="parent" />

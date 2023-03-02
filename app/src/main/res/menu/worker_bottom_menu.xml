@@ -11,10 +11,10 @@
         android:title="Ombor"
         android:icon="@drawable/ic_warehouse"/>
 
-    <item
-        android:id="@+id/history_nav_graph"
-        android:title="Tarix"
-        android:icon="@drawable/ic_history"/>
+<!--    <item-->
+<!--        android:id="@+id/history_nav_graph"-->
+<!--        android:title="Tarix"-->
+<!--        android:icon="@drawable/ic_history"/>-->
 
     <item
         android:id="@+id/workerProfileFragment"

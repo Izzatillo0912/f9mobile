@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    style="@style/cardBackground"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +30,7 @@
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/outfit_bold"
                 android:text="Calculator"
-                android:textColor="@color/black_text_color_100"
+                style="@style/mainColor"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,7 @@
                 android:id="@+id/calculator_dialog_close_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ripple_white_btn"
+                style="@style/clearFilterBtn"
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="10dp"
@@ -47,8 +48,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck"
-                app:tint="@color/black_text_color_100" />
+                tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.cardview.widget.CardView
@@ -58,6 +58,7 @@
             android:layout_marginTop="20dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="4dp"
+            style="@style/cardItemColor"
             app:layout_constraintEnd_toEndOf="@+id/calculator_title_layout"
             app:layout_constraintStart_toStartOf="@+id/calculator_title_layout"
             app:layout_constraintTop_toBottomOf="@+id/calculator_title_layout">
@@ -87,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
-                        android:background="@drawable/rectangle_search_and_filter_day"
+                        style="@style/inputColor"
                         android:ems="8"
                         android:fontFamily="@font/outfit_medium"
                         android:gravity="center"
@@ -117,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="40dp"
-                        android:background="@drawable/rectangle_search_and_filter_day"
+                        style="@style/inputColor"
                         android:ems="8"
                         android:fontFamily="@font/outfit_medium"
                         android:gravity="center"
@@ -137,6 +138,7 @@
             android:layout_marginBottom="20dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp"
+            style="@style/cardItemColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/cardView"
             app:layout_constraintStart_toStartOf="@+id/cardView"
@@ -169,12 +171,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_weight="1"
-                    android:background="@drawable/rectangle_search_and_filter_day"
+                    style="@style/inputColor"
                     android:ems="10"
                     android:enabled="false"
                     android:fontFamily="@font/outfit_medium"
                     android:gravity="center"
-                    android:textColor="@color/black_text_color_100"
                     android:text="0"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"

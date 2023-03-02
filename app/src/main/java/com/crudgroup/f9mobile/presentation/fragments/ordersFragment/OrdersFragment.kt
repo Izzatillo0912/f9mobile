@@ -9,26 +9,22 @@ import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.crudgroup.f9mobile.databinding.FragmentOrdersBinding
 import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.paginationAndAdapter.OrdersViewPagerAdapter
 import com.crudgroup.f9mobile.presentation.otherComponents.Constants
-import com.crudgroup.f9mobile.presentation.otherComponents.FilterAndSearchBar
 import com.crudgroup.f9mobile.presentation.otherComponents.ViewPagerTabLayout
 
 
 class OrdersFragment : Fragment() {
 
     private lateinit var binding: FragmentOrdersBinding
-    private lateinit var filterAndSearchBar: FilterAndSearchBar
     private lateinit var viewPagerTabLayout: ViewPagerTabLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        filterAndSearchBar = FilterAndSearchBar(this)
         viewPagerTabLayout = ViewPagerTabLayout(requireContext())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentOrdersBinding.inflate(inflater, container, false)
-        filterAndSearchBar.activeOrdersFragmentFilterAndSearchBar(binding)
         return binding.root
     }
 
