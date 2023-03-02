@@ -65,7 +65,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp">
 
-                        <EditText
+                        <TextView
                             android:id="@+id/filter_from_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -76,6 +76,7 @@
                             android:paddingTop="10dp"
                             android:paddingEnd="10dp"
                             android:paddingBottom="10dp"
+                            android:gravity="center|start"
                             android:text="0000-00-00"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -91,11 +92,13 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp">
 
-                        <EditText
+                        <TextView
                             android:id="@+id/filter_to_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
                             style="@style/inputColor"
+                            android:gravity="center|start"
                             android:fontFamily="@font/outfit_regular"
                             android:paddingStart="10dp"
                             android:paddingTop="10dp"

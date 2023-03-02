@@ -90,5 +90,6 @@ class MyConnectivityManager(context: Context) : LiveData<Boolean>() {
 
     fun checkConnection() {
         if (networkInfo == null) postValue(false)
+        else postValue(true)
     }
 }

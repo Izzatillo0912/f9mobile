@@ -12,6 +12,7 @@ import com.orhanobut.hawk.Hawk
 import retrofit2.HttpException
 
 class WarehouseCategoryPaging(private val f9Api: F9Api, private val searchText : String,
+                              private val plantId : Int,
                               private val connectionDialog: ConnectionDialog) : PagingSource<Int, WarehouseCategoryModel>() {
 
     override fun getRefreshKey(state: PagingState<Int, WarehouseCategoryModel>): Int? {
@@ -24,7 +25,7 @@ class WarehouseCategoryPaging(private val f9Api: F9Api, private val searchText :
         return try {
             val pageNumber = params.key ?: Constants.INITIAL_PAGE_NUMBER
             val pageSize = params.loadSize
-            val response = f9Api.getWarehouseCategory(searchText, pageNumber, 10, Hawk.get("my_plant_id"))
+            val response = f9Api.getWarehouseCategory(searchText, pageNumber, plantId, 10)
 
             if (response.isSuccessful) {
                 if (response.code() == 500) connectionDialog.showDialog(Constants.GET_CATEGORIES, Constants.IS_NOT_CHECKED, "Malumotlarda xatolik bor !!")

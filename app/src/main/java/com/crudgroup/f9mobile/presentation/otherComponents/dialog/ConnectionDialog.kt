@@ -29,6 +29,7 @@ class ConnectionDialog(val context: Context, private val refreshClicked : Refres
     }
     
     fun showDialog(refreshType: String, animationType : String, message : String) {
+        dismissDialog()
         if (connectionDialog == null) {
             createDialog()
             animationChanger(animationType, message)

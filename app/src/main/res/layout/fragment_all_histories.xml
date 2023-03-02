@@ -36,18 +36,7 @@
             android:paddingBottom="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle_search_and_filter_day"
-                android:fontFamily="@font/outfit_medium"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="20dp"
-                android:paddingBottom="10dp"
-                android:text="Barchasi"
-                android:textColor="@color/black_text_color_100" />
-
-            <TextView
+                android:id="@+id/production_history_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -62,6 +51,7 @@
 
 
             <TextView
+                android:id="@+id/supply_history_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -75,6 +65,7 @@
                 android:textColor="@color/black_text_color_100" />
 
             <TextView
+                android:id="@+id/transfer_history_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -143,7 +134,7 @@
         app:layout_constraintBottom_toBottomOf="@id/shimmer_layout">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/orders_rv"
+            android:id="@+id/histories_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

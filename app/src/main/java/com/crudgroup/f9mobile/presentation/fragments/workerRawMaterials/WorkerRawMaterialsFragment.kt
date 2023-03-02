@@ -32,7 +32,8 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 
-class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, WorkerRawMaterialAdapter.RawMaterialItemClickListener {
+class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, WorkerRawMaterialAdapter.RawMaterialItemClickListener,
+    FilterDialog.FilterBtnClicked{
 
     private lateinit var binding: FragmentWorkerRawMaterialsBinding
     private lateinit var connectionDialog: ConnectionDialog
@@ -52,7 +53,7 @@ class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, 
         connectionDialog = ConnectionDialog(requireContext(),this)
         connectivityManager = MyConnectivityManager(requireContext())
         connectionError = ConnectionError(requireContext())
-        filterDialog = FilterDialog(this)
+        filterDialog = FilterDialog(this, this)
         workerRawMaterialsViewModel = ViewModelProvider(this)[WorkerRawMaterialsViewModel :: class.java]
         initObserver()
         subscribeFlows()
@@ -211,5 +212,13 @@ class WorkerRawMaterialsFragment : Fragment(), ConnectionDialog.RefreshClicked, 
     override fun onResume() {
         super.onResume()
         binding.appBar.searchInput.text.clear()
+    }
+
+    override fun clearFilterClicked() {
+
+    }
+
+    override fun setFilterClicked(fromDate: String, toDate: String) {
+
     }
 }

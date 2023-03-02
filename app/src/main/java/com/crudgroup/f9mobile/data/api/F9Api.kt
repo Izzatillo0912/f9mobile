@@ -2,7 +2,8 @@ package com.crudgroup.f9mobile.data.api
 
 import com.crudgroup.f9mobile.presentation.fragments.getSupplyFragments.model.*
 import com.crudgroup.f9mobile.presentation.fragments.loginFragment.model.Token
-import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.PlantCyclesModel
+import com.crudgroup.f9mobile.presentation.fragments.ordersFragment.model.ProductionOrdersModel
+import com.crudgroup.f9mobile.presentation.fragments.roleFragments.model.MeInfoChangeModel
 import com.crudgroup.f9mobile.presentation.fragments.workerHistories.model.GetSupplyHistoryModel
 import com.crudgroup.f9mobile.presentation.fragments.workerRawMaterials.model.MaterialStoresModel
 import com.crudgroup.f9mobile.presentation.fragments.workerWarehouse.model.WarehouseCategoryModel
@@ -26,13 +27,21 @@ interface F9Api {
         @Query("id") user_id : Int = 15
     ):Response<MeInfoModel>
 
-    @GET("plant_cycles")
-    suspend fun getPlantCycles(
+
+    @PUT("update_profile/{id}")
+    suspend fun updateMeInfo(
+        @Path("id") id : Int,
+        @Body meInfoChangeModel: MeInfoChangeModel
+    ) : Response<ResponseDetail>
+
+    @GET("production/orders")
+    suspend fun getProductionOrders(
         @Query("page") page : Int,
         @Query("limit") limit : Int,
         @Query("search") search: String,
-        @Query("plant_id") plant_id: Int
-    ):Response<PaginationModel<PlantCyclesModel>>
+//        @Query("plant_id") plant_id: Int
+    ):Response<PaginationModel<ProductionOrdersModel>>
+
 
     @GET("material_types")
     suspend fun getWarehouseCategory(
